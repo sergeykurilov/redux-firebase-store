@@ -8,6 +8,7 @@ import {auth} from "../../firebase/utils";
 const Header = (props) => {
     const {currentUser} = props;
     // console.log(currentUser)
+    console.log(currentUser)
     return (
         <div className="header">
             <div className="wrap">
