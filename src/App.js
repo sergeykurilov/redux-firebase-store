@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Component} from 'react';
 import {Route, Switch} from "react-router-dom";
 
 //styles
@@ -11,25 +11,66 @@ import {MainLayout} from "./layouts/MainLayout";
 
 //layouts
 import {HomepageLayout} from "./layouts/HomepageLayout";
+import Login from "./pages/Login";
+import {auth} from "./firebase/utils";
 
 
-function App() {
-    return (
-        <div className="App">
-            <Switch>
-                <Route exact path="/" render={() => {
-                   return <HomepageLayout>
-                        <Homepage/>
-                    </HomepageLayout>
-                }}/>
-                <Route path="/registration" render={() => {
-                    return <MainLayout>
-                        <Registration/>
-                    </MainLayout>
-                }}/>
-            </Switch>
-        </div>
-    );
+const initalState = {
+    currentUser: null
+}
+
+
+class App extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            ...initalState
+        }
+    }
+
+    authListener = null;
+
+    componentDidMount() {
+        this.authListener = auth.onAuthStateChanged(userAuth => {
+            if(!userAuth) return;
+            this.setState({
+                currentUser: userAuth
+            })
+        })
+    }
+
+    componentWillUnmount() {
+        this.authListener();
+    }
+
+
+    render() {
+
+        const {currentUser} = this.state;
+
+        return (
+            <div className="App">
+                <Switch>
+                    <Route exact path="/" render={() => {
+                        return <HomepageLayout currentUser={currentUser}>
+                            <Homepage/>
+                        </HomepageLayout>
+                    }}/>
+                    <Route path="/registration" render={() => {
+                        return <MainLayout currentUser={currentUser}>
+                            <Registration/>
+                        </MainLayout>
+                    }}/>
+                    <Route path="/login" render={() => {
+                        return <MainLayout currentUser={currentUser}>
+                            <Login/>
+                        </MainLayout>
+                    }}/>
+                </Switch>
+            </div>
+        );
+    }
 }
 
 export default App;
