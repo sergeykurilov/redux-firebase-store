@@ -10,7 +10,7 @@ import Registration from "./pages/Registration";
 import {MainLayout} from "./layouts/MainLayout";
 
 //layouts
-
+import {HomepageLayout} from "./layouts/HomepageLayout";
 
 
 function App() {
@@ -18,9 +18,9 @@ function App() {
         <div className="App">
             <Switch>
                 <Route exact path="/" render={() => {
-                   return <MainLayout>
+                   return <HomepageLayout>
                         <Homepage/>
-                    </MainLayout>
+                    </HomepageLayout>
                 }}/>
                 <Route path="/registration" render={() => {
                     return <MainLayout>

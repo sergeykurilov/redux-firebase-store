@@ -2,13 +2,11 @@ import React from "react"
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-export const MainLayout = ({children}) => {
+export const HomepageLayout = ({children}) => {
     return (
-        <div>
+        <div className="fullHeight">
             <Header/>
-            <div className="main">
-                {children}
-            </div>
+            {children}
             <Footer/>
         </div>
     )
