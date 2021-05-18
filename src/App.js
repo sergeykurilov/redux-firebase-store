@@ -1,5 +1,5 @@
-import React,{Component} from 'react';
-import {Route, Switch} from "react-router-dom";
+import React, {Component} from 'react';
+import {Route, Switch, Redirect} from "react-router-dom";
 
 //styles
 import "./default.scss"
@@ -33,7 +33,12 @@ class App extends Component {
 
     componentDidMount() {
         this.authListener = auth.onAuthStateChanged(userAuth => {
-            if(!userAuth) return;
+            if (!userAuth) {
+                this.setState({
+                    ...initalState
+                })
+            }
+            ;
             this.setState({
                 currentUser: userAuth
             })
@@ -62,11 +67,11 @@ class App extends Component {
                             <Registration/>
                         </MainLayout>
                     }}/>
-                    <Route path="/login" render={() => {
-                        return <MainLayout currentUser={currentUser}>
-                            <Login/>
-                        </MainLayout>
-                    }}/>
+                    <Route path="/login" render={() => currentUser ? <Redirect to="/"/>
+                        : (<MainLayout currentUser={currentUser}>
+                                <Login/>
+                            </MainLayout>
+                        )}/>
                 </Switch>
             </div>
         );

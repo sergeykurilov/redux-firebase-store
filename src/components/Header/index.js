@@ -2,6 +2,7 @@ import React from 'react';
 import "./styles.scss"
 import logo from "../../assets/img/logo.png"
 import {Link} from "react-router-dom";
+import {auth} from "../../firebase/utils";
 
 
 const Header = (props) => {
@@ -20,7 +21,7 @@ const Header = (props) => {
                     {currentUser && (
                         <ul>
                             <li>
-                                <span>
+                                <span onClick={() => auth.signOut()}>
                                     LogOut
                                 </span>
                             </li>

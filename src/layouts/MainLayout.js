@@ -2,13 +2,13 @@ import React from "react"
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-export const MainLayout = ({children},props) => {
+export const MainLayout = (props) => {
     // console.log(props)
     return (
         <div>
             <Header {...props}/>
             <div className="main">
-                {children}
+                {props.children}
             </div>
             <Footer/>
         </div>
